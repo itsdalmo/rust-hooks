@@ -1,0 +1,7 @@
+[package]
+name = "hooks"
+version = "0.1.0"
+authors = ["itsdalmo <kristian@doingit.no>"]
+
+[dependencies]
+regex         = "0.1.80"
