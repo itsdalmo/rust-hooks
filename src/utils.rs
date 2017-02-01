@@ -36,7 +36,7 @@ fn test_base_name() {
     let callee = ".git/hooks/commit-msg";
     match base_name(callee) {
         Ok(v)  => assert_eq!(v, "commit-msg"),
-        Err(e) => assert!(false),
+        Err(_) => assert!(false),
     };
 }
 
@@ -59,17 +59,17 @@ fn test_jira_issue() {
     let issue = "DA-999_test_branch";
     match jira_issue(issue) {
         Ok(v)  => assert_eq!(v, "DA-999"),
-        Err(e) => assert!(false),
+        Err(_) => assert!(false),
     }
     match jira_issue("no_issue") {
-        Ok(v)  => assert!(false),
-        Err(e) => assert!(true),
+        Ok(_)  => assert!(false),
+        Err(_) => assert!(true),
     }
 }
 
 // Checks whether 's' is equal to 'c' ----------------------------------------
 pub fn string_matches(s: &str, c: &str) -> Result<bool> {
-    let check = try!(Regex::new(&format!("^{}$", c)));
+    let check = try!(Regex::new(&format!("(?i)^{}$", c)));
     let result = check.is_match(&s);
     Ok(result)
 }
@@ -79,15 +79,15 @@ fn test_string_matches() {
     let s = "master";
     match string_matches(s, "master") {
         Ok(v)  => assert!(v),
-        Err(e) => assert!(false),
+        Err(_) => assert!(false),
     }
-//    match string_matches(s, "MASTER") {
-//        Ok(v)  => assert!(v),
-//        Err(e) => assert!(false),
-//    }
+    match string_matches(s, "MASTER") {
+        Ok(v)  => assert!(v),
+        Err(_) => assert!(false),
+    }
     match string_matches(s, "not") {
         Ok(v)  => assert!(!v),
-        Err(e) => assert!(false),
+        Err(_) => assert!(false),
     }
 }
 
@@ -103,11 +103,11 @@ fn test_string_starts_with() {
     let s = "DA-999: Did stuff";
     match string_starts_with(s, "DA-999") {
         Ok(v)  => assert!(v),
-        Err(v) => assert!(false),
+        Err(_) => assert!(false),
     }
     match string_starts_with(s, "nope") {
         Ok(v)  => assert!(!v),
-        Err(v) => assert!(false),
+        Err(_) => assert!(false),
     }
 }
 
@@ -133,7 +133,7 @@ fn test_parse_refs() {
             assert_eq!(local, remote);
 
         },
-        Err(e) => assert!(false),
+        Err(_) => assert!(false),
     }
 }
 
