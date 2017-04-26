@@ -56,15 +56,8 @@ pub fn jira_issue(branch: &str) -> Result<&str> {
 
 #[test]
 fn test_jira_issue() {
-    let issue = "DA-999_test_branch";
-    match jira_issue(issue) {
-        Ok(v)  => assert_eq!(v, "DA-999"),
-        Err(_) => assert!(false),
-    }
-    match jira_issue("no_issue") {
-        Ok(_)  => assert!(false),
-        Err(_) => assert!(true),
-    }
+    assert_eq!(jira_issue("DA-999_test").unwrap(), "DA-999");
+    assert!(jira_issue("no_issue").is_err());
 }
 
 // Checks whether 's' is equal to 'c' ----------------------------------------
